@@ -20,7 +20,7 @@ Public Sub UpdateDriver(ByVal DriverType As dType)
     Dim DriverVer   As String
     Dim ChromeVer   As String
     
-    ChromeVer = Create0bject("WScript. Shell").RegRead("HKEY CURRENT USER\Software\ Google\Chrome \BLBeacon\version")
+    ChromeVer = CreateObject("WScript. Shell").RegRead("HKEY CURRENT USER\Software\ Google\Chrome \BLBeacon\version")
     ChromeVer = Trim(Left(ChromeVer, Len(ChromeVer) - 3))
     
     Select Case DriverType
@@ -41,13 +41,13 @@ End Sub
 Private Sub InitializeDriver(ByVal DriverType As dType)
     Select Case DriverType
         Case dType.Chrome
-            Set ChromeDriver = Create0bject("Selenium.ChromeDriver")
+            Set ChromeDriver = CreateObject("Selenium.ChromeDriver")
             ChromeDriver.Start
             ChromeInit = TRUE
         Case dType.Edge
-            Set EdgeDriver = Create0bject("Selenium.EdgeDriver")
+            Set EdgeDriver = CreateObject("Selenium.EdgeDriver")
             EdgeDriver.Start
-            tagelnat = Irue
+            EdgeInit = True
     End Select
 End Sub
 Private Function getCurrentVersion(Doc As HTMLDocument, DriverType As dType) As String
@@ -106,7 +106,7 @@ Private Sub ExtractZipAndCopy(ByVal DriverType As dType)
         Case dType.Edge: FileName = "ledgedriver.exe"
     End Select
     
-    Set FSO = Create0bject("Scripting.FileSystemObject")
+    Set FSO = CreateObject("Scripting.FileSystemObject")
     If (FSO.FileExists(SeleniumFolder & FileName)) Then
         Kill SeleniumFolder & FileName
         DriverFound = FALSE
@@ -118,7 +118,7 @@ Private Sub ExtractZipAndCopy(ByVal DriverType As dType)
         Wend
     End If
     
-    Shell.Namespace(SeleniumFolder).CopyHereoShell.Namespace(TempZipFile).Items
+    oShell.Namespace(SeleniumFolder).CopyHereoShell.Namespace(TempZipFile).Items
     If DriverType = dType.Edge Then
         Name SeleniumFolder & "msedgedriver.exe" As SeleniumFolder & "edgedriver. exe"
     End If
@@ -129,7 +129,7 @@ Private Sub ExtractZipAndCopy(ByVal DriverType As dType)
             Sleep 1000
         End If
     Wend
-    Set FS0 = Nothing
+    Set FSO = Nothing
     Kill TempZipFile
 End Sub
 Private Sub Class_Initialize()
